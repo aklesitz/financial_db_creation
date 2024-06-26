@@ -47,17 +47,17 @@ These needed some editing using power query and required no staging table for SQ
 
 # Normalization
 In order to improve query efficiency, data integrity, and reduce redundancy, I created 3 seperate tables to normalize this database. <br>
-* Accounts
-+ account_id PRIMARY KEY
-+ account_name
-* Categories
-+ category_id PRIMARY KEY
-+ orig_category
-+ stand_category
-* Transactions
-+ transaction_id PRIMARY KEY
-+ account_id FOREIGN KEY
-+ transaction_date
-+ amount
-+ description
-+ category_id FOREIGN KEY
+1. Accounts
+* account_id PRIMARY KEY
+* account_name
+2. Categories
+* category_id PRIMARY KEY
+* orig_category
+* stand_category
+3. Transactions
+* transaction_id PRIMARY KEY
+* account_id FOREIGN KEY
+* transaction_date
+* amount
+* description
+* category_id FOREIGN KEY
