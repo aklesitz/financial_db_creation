@@ -61,3 +61,7 @@ In order to improve query efficiency, data integrity, and reduce redundancy, I c
 * amount
 * description
 * category_id FOREIGN KEY
+
+# Next Steps
+1. Standardize categories table
+2. Set up automated scripts for data import
