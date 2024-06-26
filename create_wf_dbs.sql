@@ -56,7 +56,7 @@ SELECT DISTINCT category FROM wf_debit;
 SELECT * FROM wf_debit WHERE category ilike '%squish mallow%';
 
 UPDATE wf_debit
-SET category = CASE
+SET standardized_category = CASE
 	WHEN category ilike '%planet fit club%' THEN 'Planet Fit Club Fees'
 	WHEN category ilike '%capital one mobile pmt%' THEN 'Cap One Payment'
 	WHEN category ilike 'venmo payment%' THEN 'Venmo Payment'
@@ -79,7 +79,33 @@ SET category = CASE
 	WHEN category ilike '%atm%' THEN 'Atm fees'
 	WHEN category ilike '%gpc%' THEN 'GA Power'
 	WHEN category ilike '%ach%' THEN 'Tax Payment'
-	ELSE category
+	ELSE 'unassigned'
 END;
 
-SELECT * FROM wf_debit
+-- Adding standardized category column for wells fargo credit account
+UPDATE wf_credit
+SET standardized_category = CASE
+	WHEN category ilike '%planet fit club%' THEN 'Planet Fit Club Fees'
+	WHEN category ilike '%capital one mobile pmt%' THEN 'Cap One Payment'
+	WHEN category ilike 'venmo payment%' THEN 'Venmo Payment'
+	WHEN category ilike 'venmo cashout%' THEN 'Venmo Cashout'
+	WHEN category ilike 'atlanta contract payroll%' THEN 'Erica Income'
+	WHEN category ilike 'Georgia Departme%' THEN 'Tax Refund'
+	WHEN category ilike 'online transfer ref%' THEN 'WF Credit Payment'
+	WHEN category ilike 'honda%' THEN 'Erica Car Payment'
+	WHEN category ilike 'recurring payment%' THEN 'Equifax Payment'
+	WHEN category ilike 'georgia housing%' THEN 'Mortgage Payment'
+	WHEN category ilike '%scana%' THEN 'Natural Gas Payment'
+	WHEN category ilike 'mobile deposit%' THEN 'Erica Bonus Check'
+	WHEN category ilike '%klesitz%' THEN 'Credit Card Payment'
+	WHEN category ilike '%dekalb far%'
+	OR category ilike '%kroger%' THEN 'Groceries'
+	WHEN category ilike '%dmv%' THEN 'Car Tag/DMV fees'
+	WHEN category ilike '%cookies%' THEN 'Restaurant'
+	WHEN category ilike '%carpay%' THEN 'Adam Car Payment'
+	WHEN category ilike '%irs treas%' THEN 'Tax Refund'
+	WHEN category ilike '%atm%' THEN 'Atm fees'
+	WHEN category ilike '%gpc%' THEN 'GA Power'
+	WHEN category ilike '%ach%' THEN 'Tax Payment'
+	ELSE 'unassigned'
+END;

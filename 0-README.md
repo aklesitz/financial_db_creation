@@ -13,7 +13,7 @@ The data for this project comes from multiple CSV files containing transaction r
 * Delta
 * Wells Fargo (Credit and Debit)
 
-# Database Structure
+# Database Creation
 The database consists of the following columns and data types across all accounts: <br>
 Date date,
 Description text,
@@ -33,17 +33,31 @@ Amount,
 Description,
 Category <br>
 
-I also added a column for each account containing the name of the account the transaction was from. This will be useful later when importing the data into Power BI. <br>
+I also added a column for each account containing the name of the account the transaction was from. <br>
 
-Standardizing the categories has been an issue. All of the accounts use different naming conventions and some are not helpful or clear. I added another column called "standardized_category" which utilized a CASE statement to provide standardized categories that I found necessary when beginning to visualize the data from May of 2024. A null value populated the standardized category column if no appropriate match was found. <br>
-I ran a SQL query to find the number of distinct categories across all of the accounts and found there are 126 distinct categories. I think that it would be more efficient to write DAX queries in Power BI to standardize the categories on a month to month basis as I do my visualizations, as this data goes back years and some may not even be neccessary to categorize. (This CASE statement was actually based off of a DAX statement I wrote when looking at when visualizing spending data from May)
-
-[SQL CODE Create amex db](https://github.com/aklesitz/financial_db_creation/blob/main/create_amex_db.sql)
+[SQL CODE Create amex db](https://github.com/aklesitz/financial_db_creation/blob/main/create_amex_db.sql) <br>
 [SQL CODE Create cap_one db](https://github.com/aklesitz/financial_db_creation/blob/main/create_cap_one_db.sql) <br>
-(There were a few additional transactions for the month of May when I downloaded this data. Instead of downloading a new csv, I just manually imported them to the table)
-[SQL CODE Create citibank db](https://github.com/aklesitz/financial_db_creation/blob/main/create_citibank_db.sql)
+(There were a few additional transactions for the month of May when I downloaded this data. Instead of downloading a new csv, I just manually imported them to the table) <br>
+[SQL CODE Create citibank db](https://github.com/aklesitz/financial_db_creation/blob/main/create_citibank_db.sql) <br>
 
-These required no staging table. <br>
-[SQL CODE Create delta db](https://github.com/aklesitz/financial_db_creation/blob/main/create_delta_db.sql)
-[SQL CODE Create wf databases](https://github.com/aklesitz/financial_db_creation/blob/main/create_wf_dbs.sql)
-[SQL CODE Create boa db](https://github.com/aklesitz/financial_db_creation/blob/main/create_boa_db.sql)
+These needed some editing using power query and required no staging table for SQL population. <br>
+[SQL CODE Create delta db](https://github.com/aklesitz/financial_db_creation/blob/main/create_delta_db.sql) <br>
+[SQL CODE Create wf databases](https://github.com/aklesitz/financial_db_creation/blob/main/create_wf_dbs.sql) <br>
+[SQL CODE Create boa db](https://github.com/aklesitz/financial_db_creation/blob/main/create_boa_db.sql) <br>
+
+# Normalization
+In order to improve query efficiency, data integrity, and reduce redundancy, I created 3 seperate tables to normalize this database. <br>
+* Accounts
++ account_id PRIMARY KEY
++ account_name
+* Categories
++ category_id PRIMARY KEY
++ orig_category
++ stand_category
+* Transactions
++ transaction_id PRIMARY KEY
++ account_id FOREIGN KEY
++ transaction_date
++ amount
++ description
++ category_id FOREIGN KEY

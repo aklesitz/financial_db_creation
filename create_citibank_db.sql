@@ -52,3 +52,10 @@ ADD COLUMN account text;
 
 UPDATE citibank
 SET account = 'Citibank';
+
+UPDATE citibank
+SET standardized_category = CASE
+	WHEN description ilike '%payment%' THEN 'CC Payment'
+	WHEN description ilike '%balance transfer%' THEN 'Balance Transfer Fee'
+	ELSE 'unassigned'
+END;

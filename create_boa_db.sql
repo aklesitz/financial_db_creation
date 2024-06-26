@@ -48,5 +48,5 @@ SET standardized_category = CASE
 	WHEN description ilike 'goodwill%' THEN 'Retail-Clothing'
 	WHEN description ilike 'etsy%'
 	OR description ilike 'fraud%' THEN 'Fraud Dispute-Dec'
-	ELSE null
+	ELSE 'unassigned'
 END;

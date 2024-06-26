@@ -213,7 +213,7 @@ SET standardized_category =
 		WHEN category ILIKE '%mortgage payment%' THEN 'Mortgage'
 		WHEN category ILIKE '%natural gas payment%' OR
 			 category ILIKE '%ga power%' THEN 'Utilities'
-		ELSE null
+		ELSE 'unasssigned'
 	END;
 
 -- Finding number of distinct categories across all accounts
