@@ -65,3 +65,4 @@ In order to improve query efficiency, data integrity, and reduce redundancy, I c
 # Next Steps
 1. Standardize categories table
 2. Set up automated scripts for data import
+3. Visualize data and create dashboard
